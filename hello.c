@@ -1,11 +1,17 @@
 #include <stdlib.h>
- 
-enum { BUFFER_SIZE = 32 };
+#include <unistd.h>
+#include <stdio.h>
 
-int main(void) {
-  char *text_buffer = (char *)malloc(BUFFER_SIZE); 
-  if (text_buffer == NULL) {
-    return -1;
+int main(int argc, char **argv)
+  volatile int modified;
+  char buffer[64];
+
+  modified = 0;
+  gets(buffer);
+
+  if(modified != 0) {
+    printf("you have changed the 'modified' variable\n");
+  } else {
+    printf("Try again?\n");
   }
-  return 0;
 }
