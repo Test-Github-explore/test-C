@@ -14,4 +14,5 @@ int main(int argc, char **argv)
   } else {
     printf("Try again?\n");
   }
+　return 0;
 }
