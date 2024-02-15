@@ -1,14 +1,11 @@
 #include <stdlib.h>
  
-struct node {
-  int value;
-  struct node *next;
-};
- 
-void free_list(struct node *head) {
-  for (struct node *p = head; p != NULL; p = p->next) {
-    free(p);
-  }
-}
-   
+enum { BUFFER_SIZE = 32 };
 
+void main(void) {
+  char *text_buffer = (char *)malloc(BUFFER_SIZE); 
+  if (text_buffer == NULL) {
+    return;
+  }
+  return;
+}
