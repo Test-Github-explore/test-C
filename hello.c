@@ -2,7 +2,7 @@
  
 enum { BUFFER_SIZE = 32 };
 
-int f(void) {
+int main(void) {
   char *text_buffer = (char *)malloc(BUFFER_SIZE); 
   if (text_buffer == NULL) {
     return -1;
