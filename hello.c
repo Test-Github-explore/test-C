@@ -1,31 +1,18 @@
-#include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
 
-void pushStrings(char *firstString, ...)
-{
-	va_list args;
-	char *arg;
+int main(int argc, char **argv){
+    volatile int modified;
+    char buffer[64];
 
-	va_start(args, firstString);
+    modified = 0;
+    gets(buffer);
 
-	// process inputs, beginning with firstString, ending when NULL is reached
-	arg = firstString;
-	while (arg != NULL)
-	{
-		// push the string
-		pushString(arg);
-	
-		// move on to the next input
-		arg = va_arg(args, char *);
-	}
-
-	va_end(args);
-}
-
-void badFunction()
-{
-	pushStrings("hello", "world", NULL); // OK
-	
-	pushStrings("apple", "pear", "banana", NULL); // OK
-
-	pushStrings("car", "bus", "train"); // BAD, not terminated with the expected NULL
+    if(modified != 0) {
+        printf("you have changed the 'modified' variable\n");
+    } else {
+        printf("Try again?\n");
+    }
+    return 0;
 }
