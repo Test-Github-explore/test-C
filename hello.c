@@ -14,4 +14,6 @@ int main(int argc, char** argv) {
   } else {
     die("Invalid library specified\n");
   }
+
+  return ;
 }
