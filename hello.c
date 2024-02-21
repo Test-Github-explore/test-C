@@ -1,19 +1,10 @@
-int main(int argc, char** argv) {
-  char *lib = argv[2];
-  
-  // BAD: the user can cause arbitrary code to be loaded
-  void* handle = dlopen(lib, RTLD_LAZY);
-  
-  // GOOD: only hard-coded libraries can be loaded
-  void* handle2;
+int main(char * s, unsigned size) {
+	char* buf = (char*)malloc(size);
 
-  if (!strcmp(lib, "inmem")) {
-    handle2 = dlopen("/usr/share/dbwrap/inmem", RTLD_LAZY);
-  } else if (!strcmp(lib, "mysql")) {
-    handle2 = dlopen("/usr/share/dbwrap/mysql", RTLD_LAZY);
-  } else {
-    die("Invalid library specified\n");
-  }
+	strncpy(buf, s, size + 1); // wrong: copy may exceed size of buf
 
+	for (int i = 0; i <= size; i++) { // wrong: upper limit that is higher than size of buf
+		cout << buf[i];
+	}
   return ;
 }
