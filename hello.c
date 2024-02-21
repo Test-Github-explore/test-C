@@ -1,18 +1,17 @@
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
+int main(int argc, char** argv) {
+  char *lib = argv[2];
+  
+  // BAD: the user can cause arbitrary code to be loaded
+  void* handle = dlopen(lib, RTLD_LAZY);
+  
+  // GOOD: only hard-coded libraries can be loaded
+  void* handle2;
 
-int main(int argc, char **argv){
-    volatile int modified;
-    char buffer[64];
-
-    modified = 0;
-    gets(buffer);
-
-    if(modified != 0) {
-        printf("you have changed the 'modified' variable\n");
-    } else {
-        printf("Try again?\n");
-    }
-    return 0;
+  if (!strcmp(lib, "inmem")) {
+    handle2 = dlopen("/usr/share/dbwrap/inmem", RTLD_LAZY);
+  } else if (!strcmp(lib, "mysql")) {
+    handle2 = dlopen("/usr/share/dbwrap/mysql", RTLD_LAZY);
+  } else {
+    die("Invalid library specified\n");
+  }
 }
