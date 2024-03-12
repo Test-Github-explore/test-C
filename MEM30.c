@@ -1,18 +1,14 @@
+// MEM30-C: Noncompliant Code Example
+
 #include <stdlib.h>
-
-typedef struct node {
-    int data;
-    struct node *next;
-} node;
-
-int main() {
-    node *head = malloc(sizeof(node));
-    node *p;
-
-    // リストにノードを追加するコードは省略
-
-    for (p = head; p != NULL; p = p->next)
-        free(p);
-
-    return 0;
+  
+struct node {
+  int value;
+  struct node *next;
+};
+  
+void free_list(struct node *head) {
+  for (struct node *p = head; p != NULL; p = p->next) {
+    free(p);
+  }
 }
